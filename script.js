@@ -4,7 +4,7 @@ const apiKey = 'ZwZh41hbFNQDlQubGQG9OdEepfOYOuBaY8EmOV50';
 const searchURL = 'https://developer.nps.gov/api/v1/parks';
 
 const weatherApiKey = 'a1b84e9f01c54a93b59e895e666c594a';
-const weatherSearchURL = 'api.openweathermap.org/data/2.5/forecast';
+const weatherSearchURL = 'https://api.openweathermap.org/data/2.5/forecast';
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
@@ -13,16 +13,17 @@ function formatQueryParams(params) {
 }
 
 function displayResults(responseJson) {
-  console.log(JSON.stringify(responseJson, null, 4));
+  //console.log(JSON.stringify(responseJson, null, 4));
   $('#js-results').empty();
   for (let i = 0; i < responseJson.data.length; i++){
     $('#js-results').append(
       `<li>
-          <h3>${responseJson.data[i].fullName}</h3>
-          <p>${responseJson.data[i].description}</p>
-          <a class="park-more-info ${responseJson.data[i].parkCode}" data-latLong=${responseJson.data[i].latLong} href="#">Click Here for More Info!</a>
-          <a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a>
-        </li>`
+        <h3>${responseJson.data[i].fullName}</h3>
+        <p>${responseJson.data[i].description}</p>
+        <a class="park-more-info ${responseJson.data[i].parkCode}"
+        data-latLong="${responseJson.data[i].latLong}" href="#">Click Here for More Info!</a>
+        <a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a>
+      </li>`
       )};
 }
 
@@ -53,9 +54,7 @@ function getParkInfo(searchTerm) {
 }
 
 function displayMoreInfo(responseJson) {
-    console.log(JSON.stringify(responseJson, null, 4));
-  $('#js-results').empty();
-
+    //console.log(JSON.stringify(responseJson, null, 4));
   for (let i = 0; i < responseJson.data.length; i++){
     $('#js-results').append(
       `<li>
@@ -67,7 +66,7 @@ function displayMoreInfo(responseJson) {
       )};
 }
 
-function getMoreInfo(clickedCode) {
+function getMoreInfo(clickedCode, clickedLatLong) {
     const params = {
         parkCode: clickedCode,
         limit: 1,
@@ -84,12 +83,16 @@ function getMoreInfo(clickedCode) {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayMoreInfo(responseJson))
+    .then(responseJson => {
+      displayMoreInfo(responseJson)
+      generateWeather(clickedLatLong);
+    })
     .catch(err => {
       $('#js-error-message').text(`Something went wrong ${err.message}`)
     })    
 }
 
+//converting "latLong": "lat:35.5819662, long:-101.6717008" into lat, value, and long, (needs to be lon) value
 function extractLatLong(clickedLatLong) {
   return clickedLatLong.replace('ng','n').split(', ') 
   .reduce((acc, str) => {
@@ -102,19 +105,19 @@ function extractLatLong(clickedLatLong) {
 function formatWeatherQueryParams(weatherParams) {
   const weatherQueryItems = Object.keys(weatherParams)
   .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(weatherParams[key])}`)
-  console.log(weatherQueryItems)
   return weatherQueryItems.join('&');
 }
 
 function displayWeather(responseJson) {
-  console.log(JSON.stringify(responseJson, null, 4));
+  //console.log(JSON.stringify(responseJson, null, 4));
 
-  for (let i = 0; i < responseJson.list.main.length; i++){
-    $('#js-results').append(
-      `
-      <h3>${responseJson.list.main[i].temp}</h3>
-      `
-      )};
+  for (let i = 0; i < responseJson.list.length; i++){
+    $('#js-results').append(`
+      <li>
+        <h3>${responseJson.list[i].main.temp}</h3>
+      </li>
+      `)
+  };
 }
 
 function generateWeather(clickedLatLong) {
@@ -124,19 +127,25 @@ function generateWeather(clickedLatLong) {
     lon,
     appid: weatherApiKey,
   };
+    console.log(weatherParams)
     const weatherQueryString = formatWeatherQueryParams(weatherParams)
     const weatherUrl = weatherSearchURL + '?' + weatherQueryString;
 
+    console.log(weatherUrl);
+
     fetch(weatherUrl)
     .then(response => {
+      console.log(response)
       if (response.ok) {
         return response.json();
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayWeather(responseJson))
+    .then(responseJson => {
+      displayWeather(responseJson)
+    })
     .catch(err => {
-      $('#js-error-message').text(`Something "weather" went wrong ${err.message}`)
+      console.log(err)
     })
 }
 
@@ -146,8 +155,8 @@ function watchInfoLinkClick() {
       console.log("watchInfoLinkClick is running")
       const clickedCode = $(event.currentTarget).attr('class').split(' ')[1]
       const clickedLatLong = $(event.currentTarget).attr('data-latLong')
-      getMoreInfo(clickedCode);
-      generateWeather(clickedLatLong);
+      $('#js-results').empty();
+      getMoreInfo(clickedCode, clickedLatLong);
   })
 }
 
