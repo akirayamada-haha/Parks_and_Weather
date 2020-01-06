@@ -17,14 +17,12 @@ function displayResults(responseJson) {
   $('#js-results').empty();
   for (let i = 0; i < responseJson.data.length; i++){
     $('#js-results').append(
-      `<ul>
-        <li>
+      `<li>
           <h3>${responseJson.data[i].fullName}</h3>
           <p>${responseJson.data[i].description}</p>
           <a class="park-more-info ${responseJson.data[i].parkCode}" data-latLong=${responseJson.data[i].latLong} href="#">Click Here for More Info!</a>
           <a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a>
-        </li>
-      </ul>`
+        </li>`
       )};
 }
 
