@@ -91,7 +91,7 @@ function getMoreInfo(clickedCode) {
 }
 
 function extractLatLong(clickedLatLong) {
-  return clickedLatLong.split(', ') 
+  return clickedLatLong.replace('ng','n').split(', ') 
   .reduce((acc, str) => {
     const strSplit = str.split(':');
     acc[strSplit[0]] = strSplit[1];
@@ -109,17 +109,19 @@ function formatWeatherQueryParams(weatherParams) {
 function displayWeather(responseJson) {
   console.log(JSON.stringify(responseJson, null, 4));
 
-  /*for (let i = 0; i < responseJson.data.length; i++){
+  for (let i = 0; i < responseJson.list.main.length; i++){
     $('#js-results').append(
-      ``
-      )};*/
+      `
+      <h3>${responseJson.list.main[i].temp}</h3>
+      `
+      )};
 }
 
 function generateWeather(clickedLatLong) {
-  const { lat, long } = extractLatLong(clickedLatLong);
+  const { lat, lon } = extractLatLong(clickedLatLong);
   const weatherParams = {
     lat,
-    long,
+    lon,
     appid: weatherApiKey,
   };
     const weatherQueryString = formatWeatherQueryParams(weatherParams)
@@ -134,7 +136,7 @@ function generateWeather(clickedLatLong) {
     })
     .then(responseJson => displayWeather(responseJson))
     .catch(err => {
-      $('#js-error-message').text(`Something went wrong ${err.message}`)
+      $('#js-error-message').text(`Something "weather" went wrong ${err.message}`)
     })
 }
 
