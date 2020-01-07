@@ -36,6 +36,11 @@ li {
     list-style: none;
 }
 
+.displayed-weather {
+    display: inline-block;
+    padding: 15px;
+}
+
 #js-results {
     width: 95%;
     background: white;
@@ -43,3 +48,4 @@ li {
     padding: 25px;
     border-radius: 5px;
 }
+

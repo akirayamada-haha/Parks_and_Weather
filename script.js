@@ -62,6 +62,7 @@ function displayMoreInfo(responseJson) {
           <p>${responseJson.data[i].description}</p>
           <a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a>
           <h4>${responseJson.data[i].weatherInfo}</h4>
+          <h3>4 Day Weather Forecast</h3>
         </li>`
       )};
 }
@@ -111,10 +112,12 @@ function formatWeatherQueryParams(weatherParams) {
 function displayWeather(responseJson) {
   //console.log(JSON.stringify(responseJson, null, 4));
 
-  for (let i = 0; i < responseJson.list.length; i++){
+  for (let i = 0; i < responseJson.list.length - 36; i++){
     $('#js-results').append(`
-      <li>
-        <h3>${responseJson.list[i].main.temp}</h3>
+      <li class="displayed-weather">
+        <h4>Day ${[i+1]}</h4>
+        <h4>Low of ${responseJson.list[i].main.temp_min}</h4>
+        <h4>High of ${responseJson.list[i].main.temp_max}</h4>
       </li>
       `)
   };
@@ -125,6 +128,7 @@ function generateWeather(clickedLatLong) {
   const weatherParams = {
     lat,
     lon,
+    units: "imperial",
     appid: weatherApiKey,
   };
     console.log(weatherParams)
