@@ -153,10 +153,50 @@ function generateWeather(clickedLatLong) {
     })
 }
 
+function generateControlBar() {
+  return `<form>
+  <fieldset class="control-bar">
+  <label for="park-search">Search National Parks by keyword (e.g. "Texas")</label>
+  <input name="park-search" type="text" id="js-park-search" required>
+
+  <input type="submit" value="Submit">
+  </fieldset>
+</form>
+
+<p id="js-error-message"></p>
+
+<section>
+  <ul id="js-results">
+      <li><h2 class="intro">Welcome to my National Parks search website!</h2></li>
+      <li><h3>Here you can search the U.S. national parks by entering a keyword above.
+          With the results, you can select the parks' website, or choose the "More Info"
+          link, which will redirect you to a page with important information regarding that 
+          particular park.</h3></li>
+  </ul>        
+</section>`
+}
+
+function returnHomePage() {
+  $('.control-bar').on("click", ".park-search-reset", event => {
+    event.preventDefault();
+    $('.main').html(generateControlBar());
+  })
+
+}
+
+function generateReplacedControlBar() {
+  return `<label for="park-search-reset">Click Here to Begin a New Search</label><input name="park-search-reset" class="park-search-reset" type="submit" value="HOME">`
+}
+
+function replaceControlBar() {
+  $('.control-bar').html(generateReplacedControlBar());
+  returnHomePage();
+}
+
 function watchInfoLinkClick() {
   $('#js-results').on("click", ".park-more-info", event => {
       event.preventDefault();
-      console.log("watchInfoLinkClick is running")
+      replaceControlBar();
       const clickedCode = $(event.currentTarget).attr('class').split(' ')[1]
       const clickedLatLong = $(event.currentTarget).attr('data-latLong')
       $('#js-results').empty();
