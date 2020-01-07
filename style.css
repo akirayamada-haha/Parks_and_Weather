@@ -35,3 +35,11 @@ form {
 li {
     list-style: none;
 }
+
+#js-results {
+    width: 95%;
+    background: white;
+    margin: 15px auto 0;
+    padding: 25px;
+    border-radius: 5px;
+}
