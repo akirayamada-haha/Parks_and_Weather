@@ -63,6 +63,7 @@ function displayMoreInfo(responseJson) {
           <a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a>
           <h4>${responseJson.data[i].weatherInfo}</h4>
           <h3>4 Day Weather Forecast</h3>
+          <h3 id="js-weather-error-message"></h3>
         </li>`
       )};
 }
@@ -93,7 +94,6 @@ function getMoreInfo(clickedCode, clickedLatLong) {
     })    
 }
 
-//converting "latLong": "lat:35.5819662, long:-101.6717008" into lat, value, and long, (needs to be lon) value
 function extractLatLong(clickedLatLong) {
   return clickedLatLong.replace('ng','n').split(', ') 
   .reduce((acc, str) => {
@@ -149,7 +149,7 @@ function generateWeather(clickedLatLong) {
       displayWeather(responseJson)
     })
     .catch(err => {
-      console.log(err)
+      $('#js-weather-error-message').text(`Something went wrong: ${err.message}`);
     })
 }
 
@@ -180,6 +180,7 @@ function returnHomePage() {
   $('.control-bar').on("click", ".park-search-reset", event => {
     event.preventDefault();
     $('.main').html(generateControlBar());
+    watchForm();
   })
 
 }
