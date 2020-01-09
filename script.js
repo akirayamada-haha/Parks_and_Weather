@@ -59,6 +59,13 @@ function getParkInfo(searchTerm) {
 
 }
 
+function watchForBackButton() {
+  $('#js-results').on("click", ".back-button", event => {
+    event.preventDefault();
+    displayResults();
+  })
+}
+
 function displayMoreInfo(responseJson) {
     //console.log(JSON.stringify(responseJson, null, 4));
   for (let i = 0; i < responseJson.data.length; i++){
@@ -70,8 +77,11 @@ function displayMoreInfo(responseJson) {
           <h4>${responseJson.data[i].weatherInfo}</h4>
           <h3>4 Day Weather Forecast</h3>
           <h3 id="js-weather-error-message"></h3>
+          <input class="back-button" type="submit" value="BACK">
         </li>`
-      )};
+      )
+      watchForBackButton();
+    };
 }
 
 function getMoreInfo(clickedCode, clickedLatLong) {
