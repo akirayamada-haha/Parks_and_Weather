@@ -6,23 +6,26 @@ const searchURL = 'https://developer.nps.gov/api/v1/parks';
 const weatherApiKey = 'a1b84e9f01c54a93b59e895e666c594a';
 const weatherSearchURL = 'https://api.openweathermap.org/data/2.5/forecast';
 
+
+let resultsData = []
+
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
   .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
   return queryItems.join('&');
 }
 
-function displayResults(responseJson) {
+function displayResults() {
   //console.log(JSON.stringify(responseJson, null, 4));
   $('#js-results').empty();
-  for (let i = 0; i < responseJson.data.length; i++){
+  for (let i = 0; i < resultsData.length; i++){
     $('#js-results').append(
       `<li>
-        <h3>${responseJson.data[i].fullName}</h3>
-        <p>${responseJson.data[i].description}</p>
-        <a class="park-more-info ${responseJson.data[i].parkCode}"
-        data-latLong="${responseJson.data[i].latLong}" href="#">Click Here for More Info!</a>
-        <a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a>
+        <h3>${resultsData[i].fullName}</h3>
+        <p>${resultsData[i].description}</p>
+        <a class="park-more-info ${resultsData[i].parkCode}"
+        data-latLong="${resultsData[i].latLong}" href="#">Click Here for More Info!</a>
+        <a href="${resultsData[i].url}">${resultsData[i].url}</a>
       </li>`
       )};
 }
@@ -46,7 +49,10 @@ function getParkInfo(searchTerm) {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayResults(responseJson))
+    .then(responseJson => {
+      resultsData = responseJson.data
+      displayResults()
+    }) 
     .catch(err => {
       $('#js-error-message').text(`Something went wrong ${err.message}`)
     })
