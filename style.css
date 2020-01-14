@@ -57,11 +57,19 @@ li {
 
 .weather-items {
     width: 95%;
+    display: flex;
+    flex-wrap: wrap;
     background: white;
     opacity: .80;
     margin: 15px auto 0;
     padding: 25px;
     border-radius: 5px;
+}
+
+.forecast-title {
+    flex-basis: 100%;
+    text-align: center;
+    align-self: flex-end;
 }
 
 a {
@@ -78,10 +86,6 @@ a {
 }
 
 .full-name {
-    text-align: center;
-}
-
-.forecast-title {
     text-align: center;
 }
 

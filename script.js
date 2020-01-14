@@ -140,8 +140,8 @@ function displayWeather(responseJson) {
     <div>`)
   for (let i = 0; i < responseJson.list.length - 36; i++){
     $('.weather-items').append(`
-    <ul>
-      <li class="displayed-weather">
+    <ul class="displayed-weather">
+      <li>
         <h4>Day ${[i+1]}</h4>
         <h4>Low of ${responseJson.list[i].main.temp_min}</h4>
         <h4>High of ${responseJson.list[i].main.temp_max}</h4>
