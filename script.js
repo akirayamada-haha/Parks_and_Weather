@@ -17,16 +17,16 @@ function formatQueryParams(params) {
 
 function displayResults() {
   //console.log(JSON.stringify(responseJson, null, 4));
-  $('#js-results').empty();
+  $('#js-results-parks').empty();
   for (let i = 0; i < resultsData.length; i++){
-    $('#js-results').append(
-      `<li>
-        <h3>${resultsData[i].fullName}</h3>
+    $('#js-results-parks').append(
+      `<div class="results-list">
+        <h3 class="full-name">${resultsData[i].fullName}</h3>
         <p>${resultsData[i].description}</p>
-        <a class="park-more-info ${resultsData[i].parkCode}"
+        <h4 class="more-info-links"><a class="park-more-info ${resultsData[i].parkCode}"
         data-latLong="${resultsData[i].latLong}" href="#">Click Here for More Info!</a>
-        <a href="${resultsData[i].url}">${resultsData[i].url}</a>
-      </li>`
+        <a href="${resultsData[i].url}">${resultsData[i].url}</a></h4>
+      </div>`
       )};
 }
 
@@ -60,8 +60,10 @@ function getParkInfo(searchTerm) {
 }
 
 function watchForBackButton() {
-  $('#js-results').on("click", ".back-button", event => {
+  $('#js-results-parks').on("click", ".back-button", event => {
+    $('#js-error-container').empty();
     event.preventDefault();
+    $('.weather-container').empty();
     displayResults();
   })
 }
@@ -69,19 +71,24 @@ function watchForBackButton() {
 function displayMoreInfo(responseJson) {
     //console.log(JSON.stringify(responseJson, null, 4));
   for (let i = 0; i < responseJson.data.length; i++){
-    $('#js-results').append(
-      `<li>
-          <h3>${responseJson.data[i].fullName}</h3>
+    $('#js-results-parks').append(
+      `<div>
+          <h3 class="full-name">${responseJson.data[i].fullName}</h3>
           <p>${responseJson.data[i].description}</p>
-          <a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a>
-          <h4>${responseJson.data[i].weatherInfo}</h4>
-          <h3>4 Day Weather Forecast</h3>
-          <h3 id="js-weather-error-message"></h3>
-          <input class="back-button" type="submit" value="BACK">
-        </li>`
+          <h4 class="more-info-links"><a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a></h4>
+          <p>${responseJson.data[i].weatherInfo}<p>
+        </div>`
       )
-      watchForBackButton();
     };
+}
+
+function createBackButton() {
+  $('#js-results-parks').append(
+    `<div>
+      <input class="back-button" type="submit" value="BACK">
+      </div>`
+  )
+  watchForBackButton();
 }
 
 function getMoreInfo(clickedCode, clickedLatLong) {
@@ -127,16 +134,20 @@ function formatWeatherQueryParams(weatherParams) {
 
 function displayWeather(responseJson) {
   //console.log(JSON.stringify(responseJson, null, 4));
-
+  $('.weather-container').append(`
+    <div class="weather-items">
+    <h3 class="forecast-title">4 Day Weather Forecast</h3>
+    <div>`)
   for (let i = 0; i < responseJson.list.length - 36; i++){
-    $('#js-results').append(`
+    $('.weather-items').append(`
+    <ul>
       <li class="displayed-weather">
         <h4>Day ${[i+1]}</h4>
         <h4>Low of ${responseJson.list[i].main.temp_min}</h4>
         <h4>High of ${responseJson.list[i].main.temp_max}</h4>
       </li>
-      `)
-  };
+    </ul>
+      `)};
 }
 
 function generateWeather(clickedLatLong) {
@@ -163,9 +174,11 @@ function generateWeather(clickedLatLong) {
     })
     .then(responseJson => {
       displayWeather(responseJson)
+      createBackButton();
     })
     .catch(err => {
-      $('#js-weather-error-message').text(`Something went wrong: ${err.message}`);
+      $('#js-error-container').append(`<p id="js-weather-error-message">Something went wrong: ${err.message}</p>`)
+      createBackButton();
     })
 }
 
@@ -177,19 +190,23 @@ function generateControlBar() {
 
   <input type="submit" value="Submit">
   </fieldset>
-</form>
+  </form>
 
-<p id="js-error-message"></p>
+  <div id="js-error-container">
 
-<section>
-  <ul id="js-results">
-      <li><h2 class="intro">Welcome to my National Parks search website!</h2></li>
-      <li><h3>Here you can search the U.S. national parks by entering a keyword above.
-          With the results, you can select the parks' website, or choose the "More Info"
-          link, which will redirect you to a page with important information regarding that 
-          particular park.</h3></li>
-  </ul>        
-</section>`
+  </div>
+
+  <section id="js-results-parks">
+    <h2 class="intro">Welcome to my National Parks search website!</h2>
+    <h3>Here you can search the U.S. national parks by entering a keyword above.
+        With the results, you can select the parks' website, or choose the "More Info"
+        link, which will redirect you to a page with important information regarding that 
+        particular park.</h3>
+  </section>
+
+  <section class="weather-container">
+
+  </section>`
 }
 
 function returnHomePage() {
@@ -211,12 +228,12 @@ function replaceControlBar() {
 }
 
 function watchInfoLinkClick() {
-  $('#js-results').on("click", ".park-more-info", event => {
+  $('#js-results-parks').on("click", ".park-more-info", event => {
       event.preventDefault();
       replaceControlBar();
       const clickedCode = $(event.currentTarget).attr('class').split(' ')[1]
       const clickedLatLong = $(event.currentTarget).attr('data-latLong')
-      $('#js-results').empty();
+      $('#js-results-parks').empty();
       getMoreInfo(clickedCode, clickedLatLong);
   })
 }

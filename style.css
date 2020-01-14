@@ -27,6 +27,7 @@ form {
     max-width: 75%;
     min-width: 50%;
     background: white;
+    opacity: .80;
     margin: 100px auto 0;
     padding: 25px;
     text-align: center;
@@ -39,14 +40,71 @@ li {
 
 .displayed-weather {
     display: inline-block;
+    text-align: center;
     padding: 15px;
+    margin-left: 10%;
+
 }
 
-#js-results {
+#js-results-parks {
     width: 95%;
     background: white;
+    opacity: .80;
     margin: 15px auto 0;
     padding: 25px;
     border-radius: 5px;
 }
 
+.weather-items {
+    width: 95%;
+    background: white;
+    opacity: .80;
+    margin: 15px auto 0;
+    padding: 25px;
+    border-radius: 5px;
+}
+
+a {
+    color: black;
+}
+
+.intro {
+    text-align: center;
+}
+
+.more-info-links {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.full-name {
+    text-align: center;
+}
+
+.forecast-title {
+    text-align: center;
+}
+
+.results-list {
+    border-color: black;
+    border-style: solid;
+    border-width: 5px;
+}
+
+#js-error-message {
+    background-color: white;
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+#js-weather-error-message {
+    background-color: white;
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
