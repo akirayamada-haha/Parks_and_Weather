@@ -27,7 +27,7 @@ form {
     max-width: 75%;
     min-width: 50%;
     background: white;
-    opacity: .80;
+    opacity: .85;
     margin: 100px auto 0;
     padding: 25px;
     text-align: center;
@@ -49,7 +49,7 @@ li {
 #js-results-parks {
     width: 95%;
     background: white;
-    opacity: .80;
+    opacity: .85;
     margin: 15px auto 0;
     padding: 25px;
     border-radius: 5px;
@@ -60,7 +60,7 @@ li {
     display: flex;
     flex-wrap: wrap;
     background: white;
-    opacity: .80;
+    opacity: .85;
     margin: 15px auto 0;
     padding: 25px;
     border-radius: 5px;
@@ -74,6 +74,10 @@ li {
 
 a {
     color: black;
+}
+
+a:hover {
+    color: blue;
 }
 
 .intro {
@@ -93,6 +97,8 @@ a {
     border-color: black;
     border-style: solid;
     border-width: 5px;
+    margin: 5%;
+    padding: 5px;
 }
 
 #js-error-message {
@@ -111,4 +117,52 @@ a {
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
+}
+
+.back-button-div {
+    text-align: center;
+}
+
+.back-button {
+    background-color: black ;
+    text-align: center;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border: solid grey;
+}
+
+.back-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.park-search-reset {
+    background-color: black ;
+    text-align: center;
+    color: white;
+    border: none;
+    margin: 10px 10px;
+    padding: 8px 15px;
+    border: solid grey;
+}
+
+.park-search-reset:hover {
+    background-color: white;
+    color: black;
+}
+
+.submit {
+    background-color: black ;
+    text-align: center;
+    color: white;
+    border: none;
+    margin: 10px 10px;
+    padding: 8px 10px;
+    border: solid grey;
+}
+
+.submit:hover {
+    background-color: white;
+    color: black;
 }

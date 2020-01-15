@@ -24,8 +24,8 @@ function displayResults() {
         <h3 class="full-name">${resultsData[i].fullName}</h3>
         <p>${resultsData[i].description}</p>
         <h4 class="more-info-links"><a class="park-more-info ${resultsData[i].parkCode}"
-        data-latLong="${resultsData[i].latLong}" href="#">Click Here for More Info!</a>
-        <a href="${resultsData[i].url}">${resultsData[i].url}</a></h4>
+        data-latLong="${resultsData[i].latLong}" href="#" target="_blank">Click Here for More Info!</a>
+        <a href="${resultsData[i].url}" target="_blank">${resultsData[i].url}</a></h4>
       </div>`
       )};
 }
@@ -75,7 +75,7 @@ function displayMoreInfo(responseJson) {
       `<div>
           <h3 class="full-name">${responseJson.data[i].fullName}</h3>
           <p>${responseJson.data[i].description}</p>
-          <h4 class="more-info-links"><a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a></h4>
+          <h4 class="more-info-links"><a href="${responseJson.data[i].url}" target="_blank">${responseJson.data[i].url}</a></h4>
           <p>${responseJson.data[i].weatherInfo}<p>
         </div>`
       )
@@ -84,8 +84,8 @@ function displayMoreInfo(responseJson) {
 
 function createBackButton() {
   $('#js-results-parks').append(
-    `<div>
-      <input class="back-button" type="submit" value="BACK">
+    `<div class="back-button-div">
+      <input type="submit" class="back-button" value="BACK TO PREVIOUS SEARCH">
       </div>`
   )
   watchForBackButton();
@@ -188,7 +188,7 @@ function generateControlBar() {
   <label for="park-search">Search National Parks by keyword (e.g. "Texas")</label>
   <input name="park-search" type="text" id="js-park-search" required>
 
-  <input type="submit" value="Submit">
+  <input type="submit" class="submit" value="Submit">
   </fieldset>
   </form>
 
@@ -219,7 +219,7 @@ function returnHomePage() {
 }
 
 function generateReplacedControlBar() {
-  return `<label for="park-search-reset">Click Here to Begin a New Search</label><input name="park-search-reset" class="park-search-reset" type="submit" value="HOME">`
+  return `<label for="park-search-reset">Click <input name="park-search-reset" class="park-search-reset" type="submit" value="HERE"> to Begin a New Search</label>`
 }
 
 function replaceControlBar() {
