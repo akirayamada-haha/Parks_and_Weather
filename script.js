@@ -16,7 +16,7 @@ function formatQueryParams(params) {
 }
 
 function displayResults() {
-  //console.log(JSON.stringify(responseJson, null, 4));
+  //console.log(JSON.stringify(responseJson, null, 4)); //un-comment to see results in json
   $('#js-results-parks').empty();
   for (let i = 0; i < resultsData.length; i++){
     $('#js-results-parks').append(
@@ -39,8 +39,6 @@ function getParkInfo(searchTerm) {
   };
   const queryString = formatQueryParams(params)
   const url = searchURL + '?' + queryString;
-
-  console.log(url);
 
   fetch(url)
     .then(response => {
@@ -69,7 +67,6 @@ function watchForBackButton() {
 }
 
 function displayMoreInfo(responseJson) {
-    //console.log(JSON.stringify(responseJson, null, 4));
   for (let i = 0; i < responseJson.data.length; i++){
     $('#js-results-parks').append(
       `<div>
@@ -133,7 +130,6 @@ function formatWeatherQueryParams(weatherParams) {
 }
 
 function displayWeather(responseJson) {
-  //console.log(JSON.stringify(responseJson, null, 4));
   $('.weather-container').append(`
     <div class="weather-items">
     <h3 class="forecast-title">4 Day Weather Forecast</h3>
@@ -158,15 +154,13 @@ function generateWeather(clickedLatLong) {
     units: "imperial",
     appid: weatherApiKey,
   };
-    console.log(weatherParams)
+
     const weatherQueryString = formatWeatherQueryParams(weatherParams)
     const weatherUrl = weatherSearchURL + '?' + weatherQueryString;
 
-    console.log(weatherUrl);
 
     fetch(weatherUrl)
     .then(response => {
-      console.log(response)
       if (response.ok) {
         return response.json();
       }
