@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>National Park Search with Weather</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -13,37 +15,62 @@
         <h1>National Park Search</h1>
     </header>
 
-    <div class = "main">
+    <div class="main">
 
-    <form>
-        <fieldset class="control-bar">
-        <label for="park-search">Search National Parks by keyword (e.g. "Texas")</label>
-        <input name="park-search" type="text" id="js-park-search" required>
+        <form>
+            <fieldset class="control-bar">
+                <label for="park-search">Search National Parks by keyword (e.g. "Texas")</label>
+                <input name="park-search" type="text" id="js-park-search" required>
 
-        <input type="submit" class="submit" value="Submit">
-        </fieldset>
-    </form>
+                <input type="submit" class="submit" value="Submit">
+            </fieldset>
+        </form>
 
-    <div id="js-error-container">
-        
-    </div>
+        <div id="js-error-container">
+
+        </div>
 
         <section id="js-results-parks">
             <h2 class="intro">Welcome to my National Parks search website!</h2>
             <h3>Here you can search the U.S. national parks by entering a keyword above.
                 With the results, you can select the park's website, or choose the "More Info"
-                link, which will redirect you to a page with important information regarding that 
+                link, which will redirect you to a page with important information regarding that
                 particular park.</h3>
         </section>
 
         <section class="weather-container">
 
         </section>
-    
+
+        <footer>
+            <section class="contact" id="contact">
+                <ul class="contact-list">
+                    <li>
+                        <a href="mailto:evanpoe91@yahoo.com?subject=Responding%20to%20Your%20Portfolio!">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/evan-poe-full-stack-developer/" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/EvanPoe" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <h4>© 2019-2021 Evan Poe</h4>
+            <a href="#top">
+                <i class="far fa-caret-square-up fa-2x"></i>
+            </a>
+        </footer>
+
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
-    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"></script>
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 

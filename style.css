@@ -24,8 +24,7 @@ header {
 }
 
 form {
-    max-width: 75%;
-    min-width: 50%;
+    width: 95%;
     background: white;
     opacity: .85;
     margin: 100px auto 0;
@@ -166,3 +165,51 @@ a:hover {
     background-color: white;
     color: black;
 }
+
+footer {
+    margin-top: 50px;
+    margin-bottom: 15px;
+    border: 0px;
+    width: 95%;
+    background: white;
+    opacity: .85;
+    margin: 15px auto 0;
+    padding: 25px;
+    border-radius: 5px;
+  }
+  
+  section.contact {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  section.contact ul {
+    font-size: 150%;
+  }
+  
+  section.contact ul.contact-list li {
+    list-style-type: none;
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 120%;
+  }
+  
+  footer h4 {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    /* color: #163a8b; */
+  }
+  
+  footer a i.far {
+    display: block;
+    position: fixed;
+    bottom: 30px;
+    right: 50px;
+    /* color: #163a8b; */
+  }
+  
+  footer a:hover i {
+    color: #6A6D6D;
+  }
